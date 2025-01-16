@@ -6,9 +6,10 @@ class AbstractEmployee {
 };
 class Employee:AbstractEmployee {
 private:
-  string Name;
   string Company;
   int Age;
+protected:
+  string Name;
 public:
   void setName(string name) { //setter
     Name = name;
@@ -46,11 +47,24 @@ public:
       std::cout << Name << ", sorry NO promotion for you!" << std::endl;
   }
 };
+
+class Developer:public Employee {
+public:
+  string FavProgrammingLanguage;
+  Developer(string name, string company, int age, string favProgrammingLanguage)
+    :Employee(name, company, age)
+  {
+    FavProgrammingLanguage = favProgrammingLanguage;
+  }
+  void FixBug() {
+    std::cout << Name << " fixed bug using " << FavProgrammingLanguage << std::endl;
+  }
+};
 int main()
 {
   Employee employee1("Daniel", "dmonach", 25);
   Employee employee2("John", "Amazon", 35);
-
-  employee1.AskForPromotion();
-  employee2.AskForPromotion();
+  Developer d = Developer("Sardina", "Lore", 23, "HTML");
+  d.FixBug();
+  d.AskForPromotion();
 }
